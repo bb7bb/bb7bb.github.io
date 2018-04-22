@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | Hexo</title>
+  <title>简述JavaScript闭包 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="1.引入闭包 我们先从两个经典例子中提出我们的问题1234567891011121314151617181920function a(b)&amp;#123;    var c = &amp;quot;123&amp;quot;;    return function()&amp;#123;        console.log(b);        console.log(c);    &amp;#125;&amp;#125;let b =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简述JavaScript闭包">
+<meta property="og:url" content="http://yoursite.com/2018/04/22/简述JavaScript闭包/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="1.引入闭包 我们先从两个经典例子中提出我们的问题1234567891011121314151617181920function a(b)&amp;#123;    var c = &amp;quot;123&amp;quot;;    return function()&amp;#123;        console.log(b);        console.log(c);    &amp;#125;&amp;#125;let b =">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://on-img.com/chart_image/5ac47dede4b00dc8a02ceecc.png">
+<meta property="og:image" content="http://on-img.com/chart_image/5ac58033e4b0cfe27482a194.png">
+<meta property="og:updated_time" content="2018-04-22T08:24:10.556Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="简述JavaScript闭包">
+<meta name="twitter:description" content="1.引入闭包 我们先从两个经典例子中提出我们的问题1234567891011121314151617181920function a(b)&amp;#123;    var c = &amp;quot;123&amp;quot;;    return function()&amp;#123;        console.log(b);        console.log(c);    &amp;#125;&amp;#125;let b =">
+<meta name="twitter:image" content="http://on-img.com/chart_image/5ac47dede4b00dc8a02ceecc.png">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -154,76 +161,199 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-简述JavaScript闭包" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      简述JavaScript闭包
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/简述JavaScript闭包/" class="archive-article-date">
+
+        
+        <a href="/2018/04/22/简述JavaScript闭包/" class="archive-article-date">
   	<time datetime="2018-04-22T08:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/简述JavaScript闭包/">简述JavaScript闭包</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-引入闭包"><a href="#1-引入闭包" class="headerlink" title="1.引入闭包"></a>1.引入闭包</h2><ul>
+<li>我们先从两个经典例子中提出我们的问题<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function a(b)&#123;</span><br><span class="line">    var c = &quot;123&quot;;</span><br><span class="line">    return function()&#123;</span><br><span class="line">        console.log(b);</span><br><span class="line">        console.log(c);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let b = a(&quot;b&quot;);</span><br><span class="line">b();    //&quot;b&quot; &quot;123&quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let func = function()&#123;</span><br><span class="line">    var arr = new Array();</span><br><span class="line">    for(var i = 0 ; i &lt; 5;i++)&#123;</span><br><span class="line">        arr[i] = function()&#123;</span><br><span class="line">            return i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当然，如果你有了解过相关闭包的知识，那么上面的每个数组函数都会返回<code>5</code>。在这里可以很明确的告诉你这就是闭包。闭包究竟是什么，按照红宝书上面的定义是这么解释的</p>
+<blockquote>
+<p>闭包是指有权访问另一个函数作用域中的变量的函数</p>
+</blockquote>
+<p>当然，我觉得闭包有一点也特别重要，创建闭包时就创建了一个<strong>不销毁的作用域</strong>。<br>接下来我就简单的剖析一下闭包，说到闭包总不能忘记几个概念，<strong>作用域链</strong>、<strong>执行上下文</strong>、<strong>变量对象</strong></p>
+<h2 id="2-执行上下文"><a href="#2-执行上下文" class="headerlink" title="2.执行上下文"></a>2.执行上下文</h2><p>当我们调用一个函数的时候就会创建一个函数的环境，我们可以称之为<strong>执行环境</strong>，简单点也可称之为环境。当然，咱们在这里叫作<strong>执行上下文</strong>。当然，<strong>每个函数都会有各自的执行上下文</strong>。简单来说，就是函数里面的执行环境。++执行上下文定义了变量或函数有权访问其他数据++，++决定了他们各自的行为++。</p>
+<h2 id="3-变量对象"><a href="#3-变量对象" class="headerlink" title="3.变量对象"></a>3.变量对象</h2><p>每个执行上下文中有会有与之关联的<strong>变量对象</strong>，在上下文中定义的所有变量和函数都会放在这里面。当然我们是取不到它的，我们只能想象它的存在。解析器在处理数据的时候就会在后台使用变量对象。但是如果在函数中的话，我们称之为<strong>活动对象</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = 2;</span><br><span class="line">var b = 0;</span><br><span class="line">function abc(c)&#123;</span><br><span class="line">    var b = 1;</span><br><span class="line">    return a+b+c;     </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abc(3)  //5</span><br></pre></td></tr></table></figure>
+<p>那么上面这个例子是不是闭包？当然不是，第一它没有创建一个不销毁的作用域，第二他没有返回引用类型。但是上面这个函数可以帮我们理解变量对象。那么上例中函数<code>abc</code>的活动对象是<code>b、c</code>，全局的变量对象是<code>a、b</code></p>
+<h2 id="4-作用域链"><a href="#4-作用域链" class="headerlink" title="4.作用域链"></a>4.作用域链</h2><p><strong>作用域链</strong>是用来指向变量对象的，<strong>作用域的用途是保证对执行环境有权访问的所有变量和函数的有序访问</strong>。作用域的前面，始终都是<strong>当前执行</strong>的代码所在环境的变量对象</p>
+<p>我们回到上面那个<code>abc</code>的例子，在创建abc函数的时候就会创建一个包含全局变量对象的作用域链，当调用<code>abc</code>函数时，就会将<code>abc</code>的活动对象推到作用域链的前端，当函数要寻找变量时就会按照作用域链依次往下找</p>
+<p><img src="http://on-img.com/chart_image/5ac47dede4b00dc8a02ceecc.png" alt="image"></p>
+<p>所以上例子中，<code>abc</code>函数会先在活动对象变量<code>b，c</code>，再到外部去寻找<code>a</code>，因此结果得到为<code>6</code>。</p>
+<h2 id="5-闭包"><a href="#5-闭包" class="headerlink" title="5.闭包"></a>5.闭包</h2><p>既然作用域链、变量对象、执行上下文我们都简述了一遍，那么接下来我们说回闭包。</p>
+<blockquote>
+<p>闭包是指有权访问另一个函数作用域中的变量的函数</p>
+</blockquote>
+<p>我们再一次把闭包的定义扔出来，这下子我们就大概清晰许多了。那么我们接下来创建闭包函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function abc(c)&#123;</span><br><span class="line">    let a = 1;</span><br><span class="line">    return function(b)&#123;</span><br><span class="line">        return a+b+c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let test = abc(2);</span><br><span class="line">let result = test(3);       //6</span><br></pre></td></tr></table></figure></p>
+<p>当我们调用<code>abc</code>函数时，其<code>abc</code>活动对象就会推到作用域链的前端，当我们返回其匿名函数时，匿名函数的活动对象就会被推到作用域链的前端，因此在里面就可以访问到外面的值。</p>
+<p><img src="http://on-img.com/chart_image/5ac58033e4b0cfe27482a194.png" alt="image"></p>
+<p>由于我们将<code>test</code>变量赋予了<code>abc</code>的返回值，函数<code>abc</code>中就产生一个<strong>无法销毁的活动对象</strong>，匿名函数的作用域链一直引用其<code>abc</code>函数活动对象。因此在内存就产生了一个不销毁的活动对象，这也是导致内存泄漏的原因。这么来说，只要<code>test</code>一直存在，那么abc的活动对象都不会被销毁。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function abc(c)&#123;</span><br><span class="line">    let a = 1;</span><br><span class="line">    return function(b)&#123;</span><br><span class="line">        return a+b+c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let test = abc(2);</span><br><span class="line">let result = test(3);       //6</span><br><span class="line"></span><br><span class="line">test=null;  //解除对匿名函数引用，释放abc活动对象，随后执行完便可被回收</span><br></pre></td></tr></table></figure></p>
+<p>那么问题又来了，以下的函数算不算闭包呢？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function abc(c)&#123;</span><br><span class="line">    let a = 1;</span><br><span class="line">    return function(b)&#123;</span><br><span class="line">        return a+b+c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">abc(2)(3);      //6</span><br></pre></td></tr></table></figure></p>
+<p>看上去和上面没什么区别，实际上这已经不是闭包了。原因在于它没有创建一个不销毁的作用域链，它并没有定义一个变量去引用这个匿名函数，所以该函数在执行完以后就会被销毁。这只是一个普通的匿名函数而已。</p>
+<p>说完我们回到第一个问题上面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let func = function()&#123;</span><br><span class="line">    var arr = new Array();</span><br><span class="line">    for(var i = 0 ; i &lt; 5;i++)&#123;</span><br><span class="line">        arr[i] = function()&#123;</span><br><span class="line">            return i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个每个数组函数中返回的都是<code>5</code>，原因在于<strong>闭包保存的是整个变量对象</strong>，因此每个函数中都<strong>保存一样的变量对象</strong>。它们引用的都是一个变量<code>i</code>。所以在执行闭包时，<code>i</code>已经执行到<code>5</code>,返回的<code>i</code>自然便是<code>5</code>。</p>
+<ul>
+<li><strong>闭包的作用</strong></li>
+</ul>
+<p>闭包的作用就是可以在内存中保留一些变量，使其不被销毁。当然，还有重要的一点就是可以访问外界的变量与函数，取到另外一个作用域上面的值。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>我们对闭包的简述就到这里了，想要深入了解闭包还需要花更多功夫在上面。成功不是在一朝一夕之间，我们都需要努力！</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubaopay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/04/22/简述JavaScript闭包/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-22T01:51:12.139Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/22/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/hello-world/">Hello World</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -246,8 +376,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
