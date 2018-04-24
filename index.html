@@ -6,17 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hexo</title>
+  <title>bb7bb&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="bb7bb&#39;blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="bb7bb&#39;blog">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
+<meta name="twitter:title" content="bb7bb&#39;blog">
   
   
     <link rel="icon" href="/favicon.png">
@@ -46,7 +44,7 @@
 			<img src="https://upload.jianshu.io/users/upload_avatars/10414430/9b95939c-274a-461c-b30e-502c6319f40f.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="/">江明亮</a></h1>
+		  <h1 class="header-author"><a href="/">bb7bb</a></h1>
 		</hgroup>
 		
 
@@ -106,7 +104,7 @@
 				<img src="https://upload.jianshu.io/users/upload_avatars/10414430/9b95939c-274a-461c-b30e-502c6319f40f.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">江明亮</h1>
+			  <h1 class="header-author js-header-author">bb7bb</h1>
 			</hgroup>
 			
 			
@@ -155,6 +153,130 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-基于Vue实现拖拽效果" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/24/基于Vue实现拖拽效果/">基于Vue实现拖拽效果</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/24/基于Vue实现拖拽效果/" class="archive-article-date">
+  	<time datetime="2018-04-24T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://upload-images.jianshu.io/upload_images/10414430-93d8911b63914b85.gif?imageMogr2/auto-orient/strip" alt="demo1.gif"></p>
+<h2 id="分清clientY-pageY-screenY-layerY-offsetY的区别"><a href="#分清clientY-pageY-screenY-layerY-offsetY的区别" class="headerlink" title="分清clientY pageY screenY layerY offsetY的区别"></a>分清clientY pageY screenY layerY offsetY的区别</h2><p>在我们想要做出拖拽这个效果的时候，我们需要分清这几个属性的区别，这几个属性都是计算鼠标点击的偏移值，我们需要对其进行了解才可以继续实现我们的拖拽效果</p>
+<ul>
+<li>clientY 指的是距离可视页面左上角的距离</li>
+<li>pageY 指的是距离可视页面左上角的距离(不受页面滚动影响)</li>
+<li>screenY 指的是距离屏幕左上角的距离</li>
+<li>layerY 指的是找到它或它父级元素中最近具有定位的左上角距离</li>
+<li>offsetY 指的是距离它自己左上角的距离</li>
+</ul>
+<p>一张图带大家简单了解了解</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10414430-a468320f760ce39f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="区别"></p>
+<p>在我们简单了解完这些个属性以后，有几个属性需要分清。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">相同点</th>
+<th style="text-align:center">不同点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">clientY</td>
+<td style="text-align:center">距离页面左上角距离</td>
+<td style="text-align:center">受页面滚动的影响</td>
+</tr>
+<tr>
+<td style="text-align:center">pageY</td>
+<td style="text-align:center">距离页面左上角的距离</td>
+<td style="text-align:center">不受页面滚动影响</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th>相同点</th>
+<th>不同点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">layerY</td>
+<td>距离元素的左上角距离</td>
+<td>受元素的定位的影响，会从本元素往上找到第一个定位的元素的左上角</td>
+</tr>
+<tr>
+<td style="text-align:center">offsetY</td>
+<td>距离元素左上角的距离</td>
+<td>计算相对于本元素的左上角，不在乎定位问题，计算的是内交点。是IE浏览器的特有属性</td>
+</tr>
+</tbody>
+</table>
+<p><img src="https://upload-images.jianshu.io/upload_images/10414430-6c1bccb989903dfb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="layerY与offsetY区别"></p>
+<h2 id="实现拖拽功能"><a href="#实现拖拽功能" class="headerlink" title="实现拖拽功能"></a>实现拖拽功能</h2><p>我们既然熟悉了这几个偏移属性的意思，那么我们就进入我们的重点。话不多说直接上代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// darg.html</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    #app&#123;</span><br><span class="line">	    position: relative;     /*定位*/</span><br><span class="line">	    top: 10px;</span><br><span class="line">	    left: 10px;</span><br><span class="line">	    width: 200px;</span><br><span class="line">	    height: 200px;</span><br><span class="line">	    background: #666;       /*设置一下背景*/</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot; @mousedown=&quot;move&quot;&gt;       &lt;!--绑定按下事件--&gt;</span><br><span class="line">	    &#123;&#123;positionX&#125;&#125;</span><br><span class="line">        &#123;&#123;positionY&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//main.js</span><br><span class="line">let app = new Vue(&#123;</span><br><span class="line">    el:&apos;#app&apos;,</span><br><span class="line">    data:&#123;</span><br><span class="line">        positionX:0,</span><br><span class="line">        positionY:0,</span><br><span class="line">    &#125;,</span><br><span class="line">    methods:&#123;</span><br><span class="line">        move(e)&#123;</span><br><span class="line">            let odiv = e.target;        //获取目标元素</span><br><span class="line">            </span><br><span class="line">            //算出鼠标相对元素的位置</span><br><span class="line">            let disX = e.clientX - odiv.offsetLeft;</span><br><span class="line">            let disY = e.clientY - odiv.offsetTop;</span><br><span class="line">            document.onmousemove = (e)=&gt;&#123;       //鼠标按下并移动的事件![image](https://note.youdao.com/favicon.ico)</span><br><span class="line">                //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置</span><br><span class="line">                let left = e.clientX - disX;    </span><br><span class="line">                let top = e.clientY - disY;</span><br><span class="line">                </span><br><span class="line">                //绑定元素位置到positionX和positionY上面</span><br><span class="line">                this.positionX = top;</span><br><span class="line">                this.positionY = left;</span><br><span class="line">                </span><br><span class="line">                //移动当前元素</span><br><span class="line">                odiv.style.left = left + &apos;px&apos;;</span><br><span class="line">                odiv.style.top = top + &apos;px&apos;;</span><br><span class="line">            &#125;;</span><br><span class="line">            document.onmouseup = (e) =&gt; &#123;</span><br><span class="line">                document.onmousemove = null;</span><br><span class="line">                document.onmouseup = null;</span><br><span class="line">            &#125;;</span><br><span class="line">        &#125;    </span><br><span class="line">    </span><br><span class="line">    &#125;,</span><br><span class="line">    computed:&#123;&#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>当然，我们可以将它绑定为一个自定义指令，这样的话就可以用调用指令的形式来实现拖拽效果，下面是定义自定义指令的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// darg.html</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    #app&#123;</span><br><span class="line">	    position: relative;     /*定位*/</span><br><span class="line">	    top: 10px;</span><br><span class="line">	    left: 10px;</span><br><span class="line">	    width: 200px;</span><br><span class="line">	    height: 200px;</span><br><span class="line">	    background: #666;       /*设置一下背景*/</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot; v-drag&gt;       &lt;!--实现用指令形式实现拖拽效果--&gt;</span><br><span class="line">	    </span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//main.js</span><br><span class="line"></span><br><span class="line">let app = new Vue(&#123;</span><br><span class="line">    el:&apos;#app&apos;,</span><br><span class="line">    data:&#123;&#125;,</span><br><span class="line">    methods:&#123;&#125;,</span><br><span class="line">    directives: &#123;</span><br><span class="line">        drag: &#123;</span><br><span class="line">            // 指令的定义</span><br><span class="line">            bind: function (el) &#123;</span><br><span class="line">                let odiv = el;   //获取当前元素</span><br><span class="line">                oDiv.onmousedown = (e) =&gt; &#123;</span><br><span class="line">                    //算出鼠标相对元素的位置</span><br><span class="line">                    let disX = e.clientX - odiv.offsetLeft;</span><br><span class="line">                    let disY = e.clientY - odiv.offsetTop;</span><br><span class="line">                    </span><br><span class="line">                    document.onmousemove = (e)=&gt;&#123;</span><br><span class="line">                        //用鼠标的位置减去鼠标相对元素的位置，得到元素的位置</span><br><span class="line">                        let left = e.clientX - disX;    </span><br><span class="line">                        let top = e.clientY - disY;</span><br><span class="line">                      </span><br><span class="line">                        //绑定元素位置到positionX和positionY上面</span><br><span class="line">                        this.positionX = top;</span><br><span class="line">                        this.positionY = left;</span><br><span class="line">                </span><br><span class="line">                        //移动当前元素</span><br><span class="line">                        odiv.style.left = left + &apos;px&apos;;</span><br><span class="line">                        odiv.style.top = top + &apos;px&apos;;</span><br><span class="line">                    &#125;;</span><br><span class="line">                    document.onmouseup = (e) =&gt; &#123;</span><br><span class="line">                        document.onmousemove = null;</span><br><span class="line">                        document.onmouseup = null;</span><br><span class="line">                    &#125;;</span><br><span class="line">                &#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>到这里我们就已经把拖拽效果用Vue实现了，我们用了两种不同的方式实现了拖拽，但实际上换汤不换药，我们需要弄清楚pageY、screenY、clientY、layerY、offsetY等区别。当然我们同时也学习了Vue的一些方法，例如自定义指令等。</p>
+<p>成功不在一朝一夕间，我们都需要努力</p>
+<p>原创文章，转载需联系</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/24/基于Vue实现拖拽效果/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-简述JavaScript闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -333,7 +455,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 江明亮
+    		&copy; 2018 bb7bb
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -464,27 +586,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://es6.ruanyifeng.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>ECMAScript 6 入门</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="https://cn.vuejs.org/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Vue.js</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+              <a href="https://www.csdn.net/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>CSDN</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+              <a href="https://github.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>GitHub</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
+              <a href="http://www.runoob.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>菜鸟驿站</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+              <a href="http://nodejs.cn/api/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>Node.js</a>
             </li>
           
         </ul>
@@ -495,7 +617,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">先前进击的前端攻城狮</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">向前进击的前端攻城狮</div>
   	  	
     	</section>
     
