@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | bb7bb&#39;blog</title>
+  <title>JavaScript由浅及深敲开原型链（一） | bb7bb&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bb7bb&#39;blog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="一.什么是js对象1.简单理解js对象在了解原型链之前，我们先要弄清楚什么是JavaScript的对象，JavaScript对象又由哪些组成。有人说一个程序就是一个世界，那么我们可以把对象称之为这个世界的组成类型，可以是生物，植物，生活用品等等。我们在java中管这些类型叫做类，但是在JavaScript中没有类的说法，当然ES6新标准中开始出现了类。但是在此之前，我们都管这些类型叫做对象。那么对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript由浅及深敲开原型链（一）">
+<meta property="og:url" content="http://yoursite.com/2018/03/29/JavaScript由浅及深了解原型链（一）/index.html">
 <meta property="og:site_name" content="bb7bb&#39;blog">
+<meta property="og:description" content="一.什么是js对象1.简单理解js对象在了解原型链之前，我们先要弄清楚什么是JavaScript的对象，JavaScript对象又由哪些组成。有人说一个程序就是一个世界，那么我们可以把对象称之为这个世界的组成类型，可以是生物，植物，生活用品等等。我们在java中管这些类型叫做类，但是在JavaScript中没有类的说法，当然ES6新标准中开始出现了类。但是在此之前，我们都管这些类型叫做对象。那么对">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://on-img.com/chart_image/59426090e4b04d4c799d1ccf.png">
+<meta property="og:updated_time" content="2018-07-29T08:24:24.080Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bb7bb&#39;blog">
+<meta name="twitter:title" content="JavaScript由浅及深敲开原型链（一）">
+<meta name="twitter:description" content="一.什么是js对象1.简单理解js对象在了解原型链之前，我们先要弄清楚什么是JavaScript的对象，JavaScript对象又由哪些组成。有人说一个程序就是一个世界，那么我们可以把对象称之为这个世界的组成类型，可以是生物，植物，生活用品等等。我们在java中管这些类型叫做类，但是在JavaScript中没有类的说法，当然ES6新标准中开始出现了类。但是在此之前，我们都管这些类型叫做对象。那么对">
+<meta name="twitter:image" content="http://on-img.com/chart_image/59426090e4b04d4c799d1ccf.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -152,211 +158,227 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JavaScript由浅及深了解原型链（一）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/29/Javascript中this指向的深入解析/" class="archive-article-date">
-  	<time datetime="2018-07-29T08:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/29/Javascript中this指向的深入解析/">Javascript中this指向的深入解析</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript由浅及深敲开原型链（一）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/22/快速入门react/" class="archive-article-date">
-  	<time datetime="2018-07-22T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/22/快速入门react/">快速入门react</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/24/基于Vue实现拖拽效果/" class="archive-article-date">
-  	<time datetime="2018-04-24T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/24/基于Vue实现拖拽效果/">基于Vue实现拖拽效果</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/简述JavaScript闭包/" class="archive-article-date">
-  	<time datetime="2018-04-22T08:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/简述JavaScript闭包/">简述JavaScript闭包</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-22T01:51:12.139Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/30/JavaScript由浅及深了解原型链（二）/" class="archive-article-date">
-  	<time datetime="2018-03-30T09:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/30/JavaScript由浅及深了解原型链（二）/">JavaScript由浅及深了解原型链（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/29/JavaScript由浅及深了解原型链（一）/" class="archive-article-date">
+        
+        <a href="/2018/03/29/JavaScript由浅及深了解原型链（一）/" class="archive-article-date">
   	<time datetime="2018-03-29T08:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/29/JavaScript由浅及深了解原型链（一）/">JavaScript由浅及深敲开原型链（一）</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一-什么是js对象"><a href="#一-什么是js对象" class="headerlink" title="一.什么是js对象"></a>一.什么是js对象</h2><h3 id="1-简单理解js对象"><a href="#1-简单理解js对象" class="headerlink" title="1.简单理解js对象"></a>1.简单理解js对象</h3><p>在了解<strong>原型链</strong>之前，我们先要弄清楚什么是<strong>JavaScript的对象</strong>，JavaScript对象又由哪些组成。有人说一个程序就是一个世界，那么我们可以把对象称之为这个世界的组成类型，可以是生物，植物，生活用品等等。我们在<strong>java</strong>中管这些类型叫做<strong>类</strong>，但是在JavaScript中没有类的说法，当然<strong>ES6</strong>新标准中开始出现了类。但是在此之前，我们都管这些类型叫做<strong>对象</strong>。那么对象创建出来的实例就是就是组成该世界的各个元素，如一个人、一只小狗、一棵树等等。这些就称之为<strong>对象的实例</strong>。那么每种类型都有它不同的属性和方法，同样的JavaScript对象也是由对象属性和对象方法组成。当然了每个实例还可以存在与对象不一样的方法与属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var person = &#123;</span><br><span class="line">    name:&quot;xiaoming&quot;,    //对象属性</span><br><span class="line">    sayName:function()&#123;    //对象方法</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-js对象属性的特性"><a href="#2-js对象属性的特性" class="headerlink" title="2.js对象属性的特性"></a>2.js对象属性的特性</h3><p>在JavaScript对象中，每个属性都有其各自的特性，比如你的性别具有不可修改的特性。那么下面简单粗略介绍一下这几个特性。这些特性在JavaScript中是不能直接访问的，特性是内部值。</p>
+<ul>
+<li>[[Configurable]]: 表示能不能删除重新定义属性，能不能修改属性等 默认true</li>
+<li>[[Enumerable]]: 表示能不能通过for-in遍历等 默认true</li>
+<li>[[Writeable]]: 表示能不能修改属性值 默认true</li>
+<li>[[Value]]: 表示属性的值，写入到这里，读从这里读 默认undefined</li>
+</ul>
+<p>如果要修改属性的默认特性，可以使用<code>Object.defineProperty()</code>方法，当然在这里就不再继续展开了。接下来我们开始介绍对象的创建</p>
+<h2 id="二-创建JavaScript对象"><a href="#二-创建JavaScript对象" class="headerlink" title="二.创建JavaScript对象"></a>二.创建JavaScript对象</h2><h3 id="1-工厂模式"><a href="#1-工厂模式" class="headerlink" title="1.工厂模式"></a>1.工厂模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function createPerson(name,sex)&#123;</span><br><span class="line">    let obj = new Object();</span><br><span class="line">    obj.name = name;</span><br><span class="line">    obj.sex = sex;</span><br><span class="line">    obj.sayName = function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let p1 = new createPerson(&quot;小明&quot;,&quot;男&quot;);</span><br></pre></td></tr></table></figure>
+<p>这就是<strong>工厂模式</strong>，在函数内创建对象，然后在函数内封装好后返回该对象。但是该方法有个缺点就是看不出该对象的类型，于是乎构造函数模式应运而生。</p>
+<h3 id="2-构造函数模式"><a href="#2-构造函数模式" class="headerlink" title="2.构造函数模式"></a>2.构造函数模式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name,color)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.color = color;</span><br><span class="line">    this.sayName = &#123;</span><br><span class="line">        console.log(&quot;我是&quot;+name+&quot;猫&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let Tom = new Cat(&quot;Tom&quot;,&quot;灰白&quot;);</span><br><span class="line">let HelloKity = new Cat(&quot;HelloKity&quot;,&quot;粉红&quot;);</span><br></pre></td></tr></table></figure>
+<p><strong>构造函数模式</strong>和<strong>工厂模式</strong>的区别在于，构造函数模式没有<code>用return</code>语句，直接把属性赋给了<code>this</code>语句，并且没有显式的创建对象。当然，如果细心的朋友应该会发现函数名首字母大写了，这是约定在构造函数时将首字母大写。</p>
+<p>用构造函数创建新实例时，必须要用<code>new</code>操作符。同时，每个由构造函数创建的实例都会有一个<code>constructor</code>指向该构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Tom.constructor == Cat  //true</span><br></pre></td></tr></table></figure></p>
+<p>这时候我们就会想一个问题，我们在创建不同的<code>Cat</code>实例时，我们就会创建多个不同<code>sayName</code>函数，但是他们执行的功能都是一样的，这时候我们就会想要一种更优化的方法。这时，我们需要引入<strong>原型属性</strong>(<strong>prototype</strong>)的概念了</p>
+<h3 id="3-原型模式"><a href="#3-原型模式" class="headerlink" title="3.原型模式"></a>3.原型模式</h3><p>我们创建的每个函数里面都会有个<code>prototype</code>属性，这个就是原型属性，这个属性是个指针，指向一个该函数的原型对象。我们可以捋一捋对象，对象原型，实例这三者的关系，简单来说，我们可以把对象想象成爸爸，那么对象原型就是爷爷，实例的话好比是儿子。爷爷有的东西（属性、方法），每个儿子都会遗传到的，当然如果爸爸把爷爷的东西修改了一下，那么到儿子手上的就是爸爸修改过的东西了（方法重写）。当然，儿子也算是爷爷骨肉嘛，那么儿子就会有个指针<code>[[prototype]]</code>指向爷爷，在Chrome、Firefox等浏览器上面可以用属性<code>__proto__</code>可以访问到。</p>
+<ul>
+<li><h4 id="那么prototype和-proto-区别在哪？"><a href="#那么prototype和-proto-区别在哪？" class="headerlink" title="那么prototype和__proto__区别在哪？"></a>那么<code>prototype</code>和<code>__proto__</code>区别在哪？</h4></li>
+</ul>
+<p>这么说，简单的说<code>prototype</code>是指向各自的爸爸，<code>__proto__</code>是指向各自的爷爷。当然这说法只是为了更好理解这两者是有区别的。接下来我给大家做一个图让大家更好的理解这两者的区别。</p>
+<p><img src="http://on-img.com/chart_image/59426090e4b04d4c799d1ccf.png" alt="image">;</p>
+<p>这大概也是明白为什么对象实例存在个<code>constructor</code>指针指向对象了，因为对象原型上面存在这个属性指向该对象，而且原型最初只包含该<code>constructor</code>属性。<strong>而实例寻找属性值的时候会向上找，先在实例中搜索该属性，没有的话向对象原型寻找。所以最后找到并返回该值</strong>。这样就能很清楚的分开<code>prototype</code>和<code>__proto__</code>的区别了。<code>prototype</code>是对象的属性，而<code>__proto__</code>是对象实例的属性。</p>
+<p>那么我们基本了解<code>prototype</code>属性以后，我们就可以给大家说说原型模式了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype.name = &quot;Tom&quot;;</span><br><span class="line">Cat.prototype.color = &quot;灰白&quot;;</span><br><span class="line">Cat.prototype.sayName = function()&#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat1 = new Cat();</span><br><span class="line">let cat2 = new Cat();</span><br><span class="line"></span><br><span class="line">cat1.sayName();     //&quot;Tom&quot; </span><br><span class="line">cat2.sayName();     //&quot;Tom&quot;</span><br><span class="line"></span><br><span class="line">console.log(cat1.color);      //&quot;灰白&quot;</span><br><span class="line">console.log(cat2.color);      //&quot;灰白&quot;</span><br><span class="line"></span><br><span class="line">//因为对象原型是共享属性与方法，所以所有实例都可以访问到</span><br><span class="line"></span><br><span class="line">//接下来玩点更复杂的</span><br><span class="line"></span><br><span class="line">Cat.sayName = function()&#123;</span><br><span class="line">    console.log(&quot;我是Cat&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">cat1.sayName = function()&#123;</span><br><span class="line">    console.log(&quot;我是cat1&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat3 = new Cat();</span><br><span class="line"></span><br><span class="line">cat1.sayName();     //&quot;我是cat1&quot;</span><br><span class="line">cat2.sayName();     //&quot;Tom&quot;</span><br><span class="line">cat3.sayName();     //&quot;Tom&quot;</span><br><span class="line">Cat.sayName();      //&quot;我是Cat&quot;</span><br></pre></td></tr></table></figure></p>
+<p>这时候很多人就懵了，为什么<code>cat3</code>说的是<code>&quot;Tom&quot;</code>，而不是输出<code>&quot;我是Cat&quot;</code>。这是因为 Cat.sayName 这个函数是类方法，我们要注意一点，<code>Cat</code>也是一个函数，函数就是一个对象，可以为其添加方法和属性。所以我们在实例中调用sayName并不是调用该类方法。我们还需要分清类方法与对象方法的区别。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function Person()&#123;      //通过对象实例调用</span><br><span class="line">    this.say = function()&#123;</span><br><span class="line">        console.log(&quot;我是Person对象方法&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.say = function()&#123;        //只能通过Person调用</span><br><span class="line">    console.log(&quot;我是Person类方法&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Person.prototype.say = function()&#123;      //通过对象实例调用</span><br><span class="line">    console.log(&quot;我是Person对象原型方法&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>到这里，也许还是会有点懵，为什么后面的<code>cat1.sayName();     //&quot;我是cat1&quot;</code>，<strong>因为对象实例方法会屏蔽掉原型的方法</strong>。我们之前说过，当代码读取对象的某个属性时，它会先从该对象实例开始搜索，如果找不到再往上搜索。所以当你定义了对象实例的方法时，如果跟对象原型中的同名，那么该对象实例的方法就会屏蔽掉对象原型中的方法。所以<code>cat1</code>第二次输出的是<code>我是cat1</code>。</p>
+<h4 id="到这里，我再总结一下对象原型，对象与对象实例之间的关系。"><a href="#到这里，我再总结一下对象原型，对象与对象实例之间的关系。" class="headerlink" title="到这里，我再总结一下对象原型，对象与对象实例之间的关系。"></a>到这里，我再总结一下对象原型，对象与对象实例之间的关系。</h4><ul>
+<li><p><strong>对象原型内的方法与属性可以供所有的对象实例访问</strong>，<strong>实现共享性</strong>。</p>
+</li>
+<li><p><strong>对象的</strong><code>prototype</code><strong>属性可以找到对象原型</strong>，<strong>而对象实例的</strong><code>[[proto]]</code><strong>可以找到对象原型</strong></p>
+</li>
+<li><p><strong>对象实例可以重写对象原型方法</strong>，<strong>使其屏蔽对象原型的方法</strong></p>
+</li>
+<li><strong>对象原型一开始只有</strong><code>constructor</code><strong>属性</strong>，<strong>该属性指向该对象</strong></li>
+<li><strong>分清对象原型方法</strong>，<strong>对象方法</strong>，<strong>对象实例方法</strong>，<strong>类方法区别</strong>。<strong>类方法不需要通过实例化对象去访问</strong>，<strong>而其他的都要对象实例去访问</strong></li>
+</ul>
+<p>那么到这里我们已经弄懂了对象原型，对象与对象实例之间的关系。下面我再介绍一种简单的原型语法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = &#123;</span><br><span class="line">    name:&quot;Tom&quot;,</span><br><span class="line">    color:&quot;灰白&quot;,</span><br><span class="line">    sayName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样我就以字面量的形式创建了新对象，但是有个不一样的地方就是<code>constructor</code>属性不指向<code>Cat</code>，因为我们创建一个函数就会创建它的原型对象，原型对象里面自动获得<code>constructor</code>属性，那么我们再这样的情况下，重写了整个原型对象。所以此时的<code>constructor</code>属性指向了<code>Object</code>。那么我们如果非要这个属性怎么办？很好办，我们自己给它加上就好。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = &#123;</span><br><span class="line">    constructor:&quot;Cat&quot;,</span><br><span class="line">    name:&quot;Tom&quot;,</span><br><span class="line">    color:&quot;灰白&quot;,</span><br><span class="line">    sayName:function()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后我们讲一下原型模式的缺点，原型模式的缺点也很明显，就是它的共享性。成也共享败也共享。这让我突然想起共享单车。废话不多说，直接撸码上来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype.name = &quot;Tom&quot;;</span><br><span class="line">Cat.prototype.color = &quot;灰白&quot;;</span><br><span class="line">Cat.prototype.catchMouse = [&quot;Jerry&quot;];</span><br><span class="line">Cat.prototype.sayName = function()&#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat1 = new Cat();</span><br><span class="line">let cat2 = new Cat();</span><br><span class="line"></span><br><span class="line">cat1.catchMouse.push(&quot;Mickey&quot;);</span><br><span class="line"></span><br><span class="line">console.log(cat1.catchMouse);       //[&quot;Jerry&quot;, &quot;Mickey&quot;]</span><br><span class="line">console.log(cat2.catchMouse);       //[&quot;Jerry&quot;, &quot;Mickey&quot;]</span><br></pre></td></tr></table></figure></p>
+<p>因为原型上面的属性是所有实例都可以访问的，那么当添加往<code>catchMouse</code>属性添加一个值时，所有实例皆可以访问到该属性。这就让人们很头疼了，每个实例的属性应该都是不一样的才对，起码正常来说，但是这样弄得大家都一样的话，就有问题了。这时候，聪明的人应该都可以想到，将构造函数模式和原型模式组合起来就可以了。</p>
+<h3 id="4-组合构造函数模式和原型模式"><a href="#4-组合构造函数模式和原型模式" class="headerlink" title="4.组合构造函数模式和原型模式"></a>4.组合构造函数模式和原型模式</h3><p>将其组合起来，结合他们两的优点，是普遍认同度最高的对象创建模式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name,color)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.color = color;</span><br><span class="line">    this.catchMouse = [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Cat.prototype.sayName = function()&#123;</span><br><span class="line">    console.log(this.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let cat1 = new Cat(&quot;Tom&quot;,&quot;灰白&quot;);</span><br><span class="line">let cat2 = new Cat(&quot;HellowKity&quot;,&quot;粉红&quot;);</span><br><span class="line"></span><br><span class="line">cat1.catchMouse.push(&quot;Jerry&quot;);</span><br><span class="line"></span><br><span class="line">cat1.sayName();     //&quot;Tom&quot;</span><br><span class="line">cat2.sayName();     //&quot;HellowKity&quot;</span><br><span class="line">console.log(cat1.catchMouse);       //[&quot;Jerry&quot;]</span><br><span class="line">console.log(cat2.catchMouse);       //[]</span><br></pre></td></tr></table></figure>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>本篇介绍了对象与对象的创建方法。同时引入并介绍了对象原型的概念。解析了对象原型，对象与对象实例间的关系。我们在下一篇将会解析原型链的概念以及对象的继承与原型链的关系，带大家敲开原型链的奥秘。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubaopay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/03/29/JavaScript由浅及深了解原型链（一）/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/03/30/JavaScript由浅及深了解原型链（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          JavaScript由浅及深了解原型链（二）
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/03/29/JavaScript由浅及深了解原型链（一）/",
+  owner: 'bb7bb',
+  repo: 'bb7bb.github.io',
+  oauth: {
+    client_id: '53bce5e9bc0a21f633e5',
+    client_secret: '52f65a957ecdfa343d2169af4598759a55733ddf',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -379,8 +401,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

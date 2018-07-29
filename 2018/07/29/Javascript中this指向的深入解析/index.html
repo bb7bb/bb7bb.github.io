@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | bb7bb&#39;blog</title>
+  <title>Javascript中this指向的深入解析 | bb7bb&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="bb7bb&#39;blog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="普通函数的this指向简单说说首先，按照惯例，我们先举个栗子：123456789101112var bar = 2;function foo() &amp;#123;  this.bar = 1;  this.getBar = function() &amp;#123;    console.log(this.bar);  &amp;#125;&amp;#125;var test = new foo();var getBar =">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript中this指向的深入解析">
+<meta property="og:url" content="http://yoursite.com/2018/07/29/Javascript中this指向的深入解析/index.html">
 <meta property="og:site_name" content="bb7bb&#39;blog">
+<meta property="og:description" content="普通函数的this指向简单说说首先，按照惯例，我们先举个栗子：123456789101112var bar = 2;function foo() &amp;#123;  this.bar = 1;  this.getBar = function() &amp;#123;    console.log(this.bar);  &amp;#125;&amp;#125;var test = new foo();var getBar =">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10414430-0790a9b8f1c3df2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/10414430-d3c7dfe66fc35b5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-07-29T08:17:51.553Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bb7bb&#39;blog">
+<meta name="twitter:title" content="Javascript中this指向的深入解析">
+<meta name="twitter:description" content="普通函数的this指向简单说说首先，按照惯例，我们先举个栗子：123456789101112var bar = 2;function foo() &amp;#123;  this.bar = 1;  this.getBar = function() &amp;#123;    console.log(this.bar);  &amp;#125;&amp;#125;var test = new foo();var getBar =">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/10414430-0790a9b8f1c3df2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
   
   
     <link rel="icon" href="/favicon.png">
@@ -152,211 +159,213 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Javascript中this指向的深入解析" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Javascript中this指向的深入解析
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/29/Javascript中this指向的深入解析/" class="archive-article-date">
+
+        
+        <a href="/2018/07/29/Javascript中this指向的深入解析/" class="archive-article-date">
   	<time datetime="2018-07-29T08:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-29</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/29/Javascript中this指向的深入解析/">Javascript中this指向的深入解析</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="普通函数的this指向"><a href="#普通函数的this指向" class="headerlink" title="普通函数的this指向"></a>普通函数的this指向</h2><h3 id="简单说说"><a href="#简单说说" class="headerlink" title="简单说说"></a>简单说说</h3><p>首先，按照惯例，我们先举个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var bar = 2;</span><br><span class="line">function foo() &#123;</span><br><span class="line">  this.bar = 1;</span><br><span class="line">  this.getBar = function() &#123;</span><br><span class="line">    console.log(this.bar);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var test = new foo();</span><br><span class="line">var getBar = test.getBar;</span><br><span class="line"></span><br><span class="line">test.getBar();  //1</span><br><span class="line">getBar();       //2</span><br></pre></td></tr></table></figure></p>
+<p>通过这个例子我们就能看到，虽然是同一个函数，但是实际上得到的结果却不一样。这个原因相信大家都能知道。不知道的也告诉你：<strong>this其实是指向调用该函数的那个对象</strong>。那么当我们在全局环境中调用的时候，this自然就指向了全局环境。</p>
+<p>那么到是有个问题：this为什么会随调用者变化而变化？</p>
+<p>这可能需要你继续往下看看</p>
+<h3 id="深入说说"><a href="#深入说说" class="headerlink" title="深入说说"></a>深入说说</h3><p>那么如果说深层次的理解this的指向，我觉得大概可以从数据类型讲起</p>
+<p>我们都知道，栈中存放的是基本数据类型，也就是<code>String</code>、<code>Number</code>、<code>Boolean</code>、<code>Symbol</code>、<code>Null</code>、<code>Undefined</code>这七种数据类型，当然<code>Symbol</code>是ES6新增的一个数据类型。那么堆中存放的就是一些引用类型了，如<code>Obejct</code>、<code>Function</code>。实际上当我们<strong>定义一个引用类型的时候，js会同时定义一个地址指针指向内存中的对象</strong>。</p>
+<p>例如：当我们声明一个字面量对象时候<code>let a = {num:1};</code>实际上<code>a</code>中存放的是指向<code>{num:1}</code>的地址</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10414430-0790a9b8f1c3df2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="定义引用类型时"></p>
+<p>现在我们解析一下上面那段代码是如何执行的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 在全局环境下定义一个变量bar</span><br><span class="line">var bar = 2;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    //在foo中也声明了一个bar</span><br><span class="line">    this.bar = 1;</span><br><span class="line">    </span><br><span class="line">    //在foo中声明一个getBar函数</span><br><span class="line">    this.getBar = function() &#123;</span><br><span class="line">        console.log(this.bar);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//构造函数模式自定义对象，将foo的this赋予test</span><br><span class="line">var test = new foo();</span><br><span class="line"></span><br><span class="line">//将test中的getBar方法赋予getBar</span><br><span class="line">var getBar = test.getBar;</span><br><span class="line"></span><br><span class="line">//调用test中的getBar</span><br><span class="line">test.getBar();  //1</span><br><span class="line"></span><br><span class="line">//调用getBar</span><br><span class="line">getBar();       //2</span><br></pre></td></tr></table></figure></p>
+<p>现在列出来一看，放佛恍然大悟，终于知道为啥输出的是不同的结果了。那么我这里倒是有几个问题</p>
+<ul>
+<li><strong>为什么调用同一个函数却有不同的结果？</strong></li>
+<li><strong>foo中的this是指向foo的，为什么foo中的函数可以取得外部的this？</strong></li>
+<li><strong>为什么this会随调用它的对象变化而变化？</strong></li>
+</ul>
+<p>ok，其实要弄清楚上述问题，我们需要明白一点，函数也是个引用类型。那么我们上面讲过，创建引用类型的时候会同时创建一个地址指针。那么我们就可以这样理解上面的foo对象</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/10414430-d3c7dfe66fc35b5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="this.png"></p>
+<p>*实际上foo中的getBar只是存放了一个函数的地址而已**。那么这个函数并不是foo所私有。什么东西是foo的呢？一个值为1的bar和一个指向<code>function() {console.log(this.bar);}</code>函数的getBar而已。</p>
+<p>这样我们就不难理解，为什么调用同一个函数会有不一样的结果了，<strong>因为这个函数并不是<code>foo</code>所私有</strong>。好比内存就是深圳，函数就只是深圳的一套房。<code>getBar</code>就是这套房的钥匙。那么一开始<code>foo</code>这个人建好了这房子，就他有这房子的钥匙，那么当然只有他能进出该房子，后来有一天他把钥匙多配了一把给了<code>window</code>这好朋友。于是乎<code>window</code>也能进这套房了。给<code>window</code>配钥匙的过程：<code>var getBar = test.getBar;</code>这里只是<strong>将该函数的地址赋给全局下的getBar</strong>而已，房子也只是一套房子，函数还是一个函数。</p>
+<blockquote>
+<p>由于函数可以在不同的运行环境执行，所以需要有一种机制，能够在函数体内部获得当前的运行环境（context）。所以，this就出现了，它的设计目的就是在函数体内部，指代函数当前的运行环境。</p>
+</blockquote>
+<p>所以当window调用这个函数的时候，this就不是指向foo了。而是指向window。this是指向他们自己。window的衣服不会在进了foo的房子以后就变成foo的衣服。</p>
+<p>ok，我们现在再把刚刚的代码重新注释一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 在全局环境下定义一个变量bar</span><br><span class="line">var bar = 2;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    //在foo中也声明了一个bar</span><br><span class="line">    this.bar = 1;</span><br><span class="line">    </span><br><span class="line">    //在foo中声明一个getBar函数，getBar存放该函数的地址</span><br><span class="line">    this.getBar = function() &#123;</span><br><span class="line">        console.log(this.bar);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//构造函数模式自定义对象，将foo的this赋予test</span><br><span class="line">var test = new foo();</span><br><span class="line"></span><br><span class="line">//将test中的getBar方法的地址赋予全局的getBar</span><br><span class="line">var getBar = test.getBar;</span><br><span class="line"></span><br><span class="line">//调用test中的getBar函数</span><br><span class="line">test.getBar();  //1</span><br><span class="line"></span><br><span class="line">//调用getBar函数</span><br><span class="line">getBar();       //2</span><br></pre></td></tr></table></figure></p>
+<p>于是乎我们就把普通的this指向弄明白了。顺便还明白了堆栈的区别。接下来看看不普通的函数this指向是如何的</p>
+<h2 id="箭头函数this指向"><a href="#箭头函数this指向" class="headerlink" title="箭头函数this指向"></a>箭头函数this指向</h2><p><strong>箭头函数内没有this，箭头函数的this是父级函数的this</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 在全局环境下定义一个变量bar</span><br><span class="line">var bar = 2;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    //在foo中也声明了一个bar</span><br><span class="line">    this.bar = 1;</span><br><span class="line">    </span><br><span class="line">    //在foo中定义一个箭头函数，getBar存放该函数的地址</span><br><span class="line">    this.getBar = () =&gt; &#123;</span><br><span class="line">        console.log(this.bar);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//构造函数模式自定义对象，将foo的this赋予test</span><br><span class="line">var test = new foo();</span><br><span class="line"></span><br><span class="line">//将test中的getBar方法的地址赋予全局的getBar</span><br><span class="line">var getBar = test.getBar;</span><br><span class="line"></span><br><span class="line">//调用test中的getBar函数</span><br><span class="line">test.getBar();  //1</span><br><span class="line"></span><br><span class="line">//调用getBar函数</span><br><span class="line">getBar();       //1</span><br></pre></td></tr></table></figure>
+<p>如果定义了箭头函数的情况下，this执行就不会随意的改变了。普通函数的this是会跟随调用者变化，但是箭头函数就很特别，<strong>他只会继承父级的this</strong>，<strong>而且一旦建立就不会改变了</strong>。所以在这里我们就可以看见，尽管全局下面调用getBar，但是实际上还是取到了foo的this。</p>
+<p>因此箭头函数不可以用来当作构造函数。因为它本身是没有this的！</p>
+<p>所以箭头函数使用的话需要与普通函数区别开这点，它的this指向定义函数时候的父级。</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>关于this就介绍到这里，如果有什么不懂的欢迎随时提问，我会随时回答大家的问题。</p>
+<p>那么最后，成功不在一朝一夕，我们都需要努力</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/zhifubaopay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/assets/img/weixinpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/07/29/Javascript中this指向的深入解析/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/22/快速入门react/" class="archive-article-date">
-  	<time datetime="2018-07-22T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/22/快速入门react/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">快速入门react</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/22/快速入门react/">快速入门react</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/24/基于Vue实现拖拽效果/" class="archive-article-date">
-  	<time datetime="2018-04-24T13:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/24/基于Vue实现拖拽效果/">基于Vue实现拖拽效果</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/简述JavaScript闭包/" class="archive-article-date">
-  	<time datetime="2018-04-22T08:22:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/简述JavaScript闭包/">简述JavaScript闭包</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/22/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-22T01:51:12.139Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-22</time>
-</a>
-        </div>
-    	 
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://yoursite.com/2018/07/29/Javascript中this指向的深入解析/",
+  owner: 'bb7bb',
+  repo: 'bb7bb.github.io',
+  oauth: {
+    client_id: '53bce5e9bc0a21f633e5',
+    client_secret: '52f65a957ecdfa343d2169af4598759a55733ddf',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/30/JavaScript由浅及深了解原型链（二）/" class="archive-article-date">
-  	<time datetime="2018-03-30T09:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/30/JavaScript由浅及深了解原型链（二）/">JavaScript由浅及深了解原型链（二）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/29/JavaScript由浅及深了解原型链（一）/" class="archive-article-date">
-  	<time datetime="2018-03-29T08:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/29/JavaScript由浅及深了解原型链（一）/">JavaScript由浅及深敲开原型链（一）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -379,8 +388,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
